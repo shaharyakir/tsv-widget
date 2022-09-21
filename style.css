@@ -26,11 +26,16 @@ div.CodeMirror {
     list-style-type: none;
     min-width: 10rem;
     max-width: 10rem;
+    overflow-y: auto;
 }
 
 .container-tabs.vertical .nav-tabs {
     flex-direction: row;
     min-width: initial;
+    max-width: initial;
+    min-height: 2.5rem;
+    overflow-y: hidden;
+    overflow-x: auto;
 }
 
 .container-tabs .nav-tabs > div {
