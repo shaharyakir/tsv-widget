@@ -1,7 +1,7 @@
 {
   "author": "Alex Pardoe",
   "colorSpaceName": "sRGB",
-  "name": "OneDark",
+  "name": "OneLight",
   "semanticClass": "theme.light.onelight",
   "gutterSettings": {
     "background": "#f3f4f6",
@@ -12,7 +12,7 @@
       "settings": {
         "background": "#ffffff",
         "caret": "#528BFF",
-        "foreground": "#ABB2BF",
+        "foreground": "#333",
         "invisibles": "#747369",
         "lineHighlight": "#4C576730",
         "selection": "#c9deff"
@@ -23,7 +23,7 @@
       "scope": "comment",
       "settings": {
         "fontStyle": " italic",
-        "foreground": "#5C6370"
+        "foreground": "#009117"
       }
     },
     {
@@ -38,15 +38,23 @@
       "name": "Variable, String Link, Regular Expression, Tag Name",
       "scope": "variable, support.other.variable, string.other.link, string.regexp, entity.name.tag, entity.other.attribute-name, meta.tag, declaration.tag",
       "settings": {
-        "foreground": "#E06C75"
+        "foreground": "#00f"
       }
     },
     {
-      "name": "Number, Constant, Function Argument, Tag Attribute, Embedded",
-      "scope": "constant.numeric, constant.language, support.constant, constant.character, variable.parameter, punctuation.section.embedded, keyword.other.unit",
+      "name": "Function Argument, Tag Attribute, Embedded",
+      "scope": "constant.language, support.constant, constant.character, variable.parameter, punctuation.section.embedded, keyword.other.unit",
       "settings": {
         "fontStyle": "",
         "foreground": "#D19A66"
+      }
+    },
+    {
+      "name": "Number, Constant",
+      "scope": "constant.numeric",
+      "settings": {
+        "fontStyle": "",
+        "foreground": "#008d55"
       }
     },
     {
@@ -77,15 +85,23 @@
       "scope": "entity.name.function, meta.function-call, support.function, keyword.other.special-method, meta.block-level",
       "settings": {
         "fontStyle": "",
-        "foreground": "#61AFEF"
+        "foreground": "#bb7101"
       }
     },
     {
       "name": "Keyword, Storage",
-      "scope": "keyword, storage, storage.type, entity.name.tag.css, keyword.operator",
+      "scope": "keyword, storage, storage.type, entity.name.tag.css",
       "settings": {
         "fontStyle": "",
-        "foreground": "#C678DD"
+        "foreground": "#708"
+      }
+    },
+    {
+      "name": "Keyword, Storage",
+      "scope": "keyword.operator",
+      "settings": {
+        "fontStyle": "",
+        "foreground": "#000"
       }
     },
     {

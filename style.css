@@ -1,7 +1,18 @@
 .container-tabs {
-    margin: 2rem;
+    font-family: "Roboto", Arial, serif !important;
+    font-size: 12pt;
     display: flex;
     flex-direction: row;
+    position: relative;
+    height: 100%;
+}
+
+div.CodeMirror {
+    height: 100%;
+}
+
+.container-tabs.vertical div.CodeMirror {
+    max-width: 100%;
 }
 
 .container-tabs.vertical {
@@ -13,10 +24,13 @@
     flex-direction: column;
     margin: 0;
     list-style-type: none;
+    min-width: 10rem;
+    max-width: 10rem;
 }
 
 .container-tabs.vertical .nav-tabs {
     flex-direction: row;
+    min-width: initial;
 }
 
 .container-tabs .nav-tabs > div {
@@ -32,7 +46,7 @@
 }
 
 .container-tabs.dark .nav-tabs > div {
-    border:  1px solid #393b4a;
+    border: 1px solid #393b4a;
     background-color: #393b4a;
     color: #fff;
 }
@@ -42,7 +56,7 @@
 }
 
 .container-tabs.dark .nav-tabs > div:hover {
-    border:  1px solid #636680;
+    border: 1px solid #636680;
     background-color: #393b4a;
     color: #fff;
 }
@@ -54,13 +68,41 @@
 }
 
 .container-tabs.dark .nav-tabs > div.active, .container-tabs.dark .nav-tabs > div.active:hover, .container-tabs.dark .nav-tabs > div.active:focus {
-    border:  1px solid #fff;
+    border: 1px solid #fff;
     background-color: #393b4a;
     color: #fff;
 }
 
 .container-tabs .tab-content {
-    float: left;
-    width: 100%;
+    margin-left: 2px;
+    max-width: calc(100% - 10rem - 2px); /* including left margin and buttons */
+    height: 100%;
 }
 
+.container-tabs.vertical .tab-content {
+    max-width: initial;
+    margin-left: 0;
+    margin-top: 2px;
+}
+
+.container-tabs .loading-curtain {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    background: #000;
+    opacity: 0.3;
+}
+
+.container-tabs .loading-curtain.visible {
+    display: flex;
+}
+
+.container-tabs.dark .loading-curtain.visible {
+    background: #FFF;
+}
+
+.cm-host-textarea {
+    visibility: hidden;
+}
