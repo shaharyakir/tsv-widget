@@ -15,7 +15,6 @@
   "bugs": {
     "url": "https://github.com/orbs-network/tsv-widget/issues"
   },
-  "private": true,
   "author": "Deddy Dayag (daviddayag@gmail.com)",
   "license": "MIT",
   "dependencies": {
