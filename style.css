@@ -4,6 +4,10 @@
     flex-direction: row;
 }
 
+.container-tabs.vertical {
+    flex-direction: column;
+}
+
 .container-tabs .nav-tabs {
     display: flex;
     flex-direction: column;
@@ -11,23 +15,48 @@
     list-style-type: none;
 }
 
+.container-tabs.vertical .nav-tabs {
+    flex-direction: row;
+}
 
 .container-tabs .nav-tabs > div {
     white-space: nowrap;
     margin-right: 2px;
     line-height: 1.42857143;
-    padding: 10px;
+    padding: 10px 20px;
     cursor: pointer;
+}
+
+.container-tabs .nav-tabs > div {
+    background-color: #fff;
+}
+
+.container-tabs.dark .nav-tabs > div {
+    border:  1px solid #393b4a;
+    background-color: #393b4a;
+    color: #fff;
 }
 
 .container-tabs .nav-tabs > div:hover {
     background-color: #efefef;
 }
 
+.container-tabs.dark .nav-tabs > div:hover {
+    border:  1px solid #636680;
+    background-color: #393b4a;
+    color: #fff;
+}
+
 .container-tabs .nav-tabs > div.active, .container-tabs .nav-tabs > div.active:hover, .container-tabs .nav-tabs > div.active:focus {
     color: #555;
     cursor: default;
-    background-color: #dfdfdf;
+    background-color: #f3f4f6;
+}
+
+.container-tabs.dark .nav-tabs > div.active, .container-tabs.dark .nav-tabs > div.active:hover, .container-tabs.dark .nav-tabs > div.active:focus {
+    border:  1px solid #fff;
+    background-color: #393b4a;
+    color: #fff;
 }
 
 .container-tabs .tab-content {

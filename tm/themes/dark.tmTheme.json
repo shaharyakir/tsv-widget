@@ -3,9 +3,13 @@
     "colorSpaceName": "sRGB",
     "name": "OneDark",
     "semanticClass": "theme.dark.onedark",
+    "gutterSettings": {
+        "background": "#393b4a",
+        "divider": "#282a34"
+    },
     "settings": [{
         "settings": {
-            "background": "#282C34",
+            "background": "#282a34",
             "caret": "#528BFF",
             "foreground": "#ABB2BF",
             "invisibles": "#747369",

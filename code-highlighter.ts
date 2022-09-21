@@ -2,10 +2,25 @@ import {loadWASM} from "onigasm"
 import {activateLanguage, addGrammar, addTheme, ITextmateThemePlus, linkInjections, setRoot} from "codemirror-textmate"
 import * as CodeMirror from "codemirror"
 
+/**
+ *
+ */
 export default class CodeHighlighter {
 
     private editor: CodeMirror.EditorFromTextArea
+    private readonly theme: string
 
+    constructor(theme: string) {
+
+        this.theme = theme
+
+    }
+
+    /**
+     *
+     * @param shadowRoot
+     * @param element
+     */
     async init(shadowRoot: ShadowRoot, element: HTMLTextAreaElement) {
 
         setRoot(shadowRoot)
@@ -23,7 +38,7 @@ export default class CodeHighlighter {
             }
         }
 
-// To avoid FOUC, await for high priority languages to get ready (loading/compiling takes time, and it's an async process for which CM won't wait)
+        // To avoid FOUC, await for high priority languages to get ready (loading/compiling takes time, and it's an async process for which CM won't wait)
         await Promise.all(Object.keys(grammars).map(async scopeName => {
             const {loader, language, priority} = grammars[scopeName]
 
@@ -50,45 +65,34 @@ export default class CodeHighlighter {
             mode: 'func'
         })
 
-// Everything should be working now!
+        // Using Textmate theme in CodeMirror
+        let cmTheme = await import(
+            this.theme === 'dark' ? './tm/themes/dark.tmTheme.json' : './tm/themes/light.tmTheme.json'
+            )
 
-//////////////////////////////////////////////////////
-
-//    ____        __  _                   __
-//   / __ \____  / /_(_)___  ____  ____ _/ /
-//  / / / / __ \/ __/ / __ \/ __ \/ __ `/ /
-// / /_/ / /_/ / /_/ / /_/ / / / / /_/ / /
-// \____/ .___/\__/_/\____/_/ /_/\__,_/_/
-//     /_/
-
-// Using Textmate theme in CodeMirror
         const themeX: ITextmateThemePlus = {
-            ...(await import('./tm/themes/OneDark.tmTheme.json')),
-            gutterSettings: {
-                background: '#1d1f25',
-                divider: '#1d1f25'
-            }
+            ...cmTheme,
+            gutterSettings: cmTheme.gutterSettings
         }
 
         addTheme(themeX)
 
         this.editor.setOption('theme', themeX.name)
 
-// Grammar injections, example code below will highlight css-in-js (styled-components, emotion)
-// injections are "injections", they are not standalone-grammars, therefore no `activateLanguage`
+        // Grammar injections, example code below will highlight css-in-js (styled-components, emotion)
+        // injections are "injections", they are not standalone-grammars, therefore no `activateLanguage`
         addGrammar('source.func', () => import('./tm/grammar/func.tmLanguage.json') as any)
 
         const affectedLanguages = await linkInjections('source.func', ['source.func'])
 
         console.log(affectedLanguages)
-// You must re-trigger tokenization to apply the update above (if applicable)
+        // You must re-trigger tokenization to apply the update above (if applicable)
         const activeMode = this.editor.getOption('mode')
         if (affectedLanguages.indexOf(activeMode.toString()) > -1) {
             // Resetting cm's mode re-triggers tokenization of entire document
             this.editor.setOption('mode', activeMode)
         }
     }
-
 
     setCode(value) {
 

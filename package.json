@@ -4,8 +4,9 @@
   "description": "Javascript Minimal Starter Kit for building libraries",
   "main": "dist/index.js",
   "scripts": {
-    "start": "yarn run __build-cm-tm && webpack-dev-server --content-base . --hot --inline",
-    "__build-cm-tm": "tsc --build tsconfig.json"
+    "start": "yarn run build && webpack-dev-server --content-base . --hot --inline",
+    "build": "tsc --build tsconfig.json",
+    "npm-publish" : "npm publish"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   "dependencies": {
     "@types/codemirror": "^5.43.0",
     "codemirror": "^5.43.0",
+    "codemirror-textmate": "git://github.com/daviddayag/codemirror-textmate",
     "onigasm": "^2.2.1"
   },
   "devDependencies": {
