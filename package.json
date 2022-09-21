@@ -1,12 +1,12 @@
 {
   "name": "@orbs-network/tsv-widget",
   "version": "0.0.1",
-  "description": "Javascript Minimal Starter Kit for building libraries",
+  "description": "Ton contract code viewer for func with code highlighting ",
   "main": "dist/index.js",
   "scripts": {
     "start": "yarn run build && webpack-dev-server --content-base . --hot --inline",
     "build": "tsc --build tsconfig.json",
-    "npm-publish" : "npm publish"
+    "npm-publish" : "npm publish --access=public"
   },
   "repository": {
     "type": "git",
