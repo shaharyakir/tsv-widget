@@ -2,9 +2,10 @@
 
 ## Table of Contents
 
-- [Table of Contents](#table-of-contents)
-- [TL;DR](#tldr)
-- [Getting Started](#getting-started)
+- Table of Contents
+- TL;DR
+- Getting Started
+- License
 
 
 ## TL;DR
@@ -23,11 +24,29 @@ npm install ton-sources-verifier-widget
 ```
 then in your html (or any other ui framework)
 ```
-<tsv-widget ipfs-provider="https://cloudflare-ipfs.com"
-            verified-contract-url="https://api.npoint.io/16c8363c4358296a6b7c">
+<tsv-widget ipfs-provider="https://tonsource.infura-ipfs.io"
+            verified-contract-url="ipfs://Qmc2XaToAq77pcsQLS4qv3qnnkjjSFDPwqBi9kJXJnbiSr"
+            theme="light"
+            layout="horizontal">
 </tsv-widget>
+
 ```
 
 ## 💎 Customization
 
-> 1. css...
+The tsv-widget is a custom element, which means that in order to get access to its internal components you need to access the shadow tree of the element.
+For css you can use "part" selector to access internal elements inside the shadow tree
+
+For example (on the document level): 
+
+``` 
+<style>
+    #widget::part(container-tabs) {
+        background-color: deeppink !important;
+    }
+</style>
+```
+
+## 📔 License
+
+MIT
