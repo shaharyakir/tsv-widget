@@ -1,55 +1,69 @@
-const path = require('path')
+const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-    mode: 'development',
-    devtool: 'sourcemap',
-    entry: path.resolve('./index.ts'),
+    mode: "production",
+    devtool: 'source-map',
+    entry: './src/lib/index.ts',
     output: {
-        path: path.resolve('dist/'),
         filename: 'index.js',
+        path: path.resolve(__dirname, 'build'),
+        library: 'TSVWidget',
+        libraryTarget: 'umd',
+        clean: true
     },
-    target: 'web',
+    devServer: {
+        static: path.resolve(__dirname, 'build'),
+        open: true,
+        hot: true,
+        host: "localhost",
+        port: 8080
+    },
+    performance: {
+        maxEntrypointSize: 512000,
+        maxAssetSize: 512000
+    },
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new TerserPlugin({extractComments: false}),
+            new CssMinimizerPlugin()
+        ]
+    },
+    resolve: {
+        extensions: ['.wasm', '.tsx', '.ts', '.js', '.json', '...']
+    },
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
-                exclude: /(node_modules)/,
-                use: {
-                    loader: 'ts-loader',
-                    options: {
-                        happyPackMode: true,
-                    }
-                },
+                test: /\.ts?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
             },
             {
-                test: /\.css$/,
+                test: /\.m?js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader'
+                }
+            },
+            {
+                test: /\.(sa|sc|c)ss$/,
                 use: ['to-string-loader', 'css-loader'],
-            },
-            {
-                test: /\.wasm$/,
-                use: {
-                    loader: 'file-loader',
-                    options: {
-                        name: '[name].[hash:6].[ext]'
-                    }
-                },
-                type: 'javascript/auto'
             }
-        ],
-    },
-    resolve: {
-        extensions: ['.js', '.ts', '.tsx'],
-        // DO NOT DO THIS!!!
-        // here it is neccessary because `./demo` consumes `codemirror-textmate` as symbolic link not as "dependency"
-        alias: {
-            'codemirror': path.resolve('node_modules/codemirror'),
-            'onigasm': path.resolve('node_modules/onigasm'),
-        }
+        ]
     },
     plugins: [
+        new NodePolyfillPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'css/index.css'
+        }),
         new HTMLWebpackPlugin({
             template: path.resolve('./index.html')
         })
     ]
-}
+};

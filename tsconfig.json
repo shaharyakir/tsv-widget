@@ -2,15 +2,15 @@
     "compilerOptions": {
         "moduleResolution": "node",
         "target": "es6",
-        "outDir": "dist",
+        "outDir": "build",
         "module": "commonjs",
         "declaration": true,
-        "declarationDir": "dist/typings",
+        "declarationDir": "build/typings",
         "sourceMap": true,
         "resolveJsonModule": true
     },
     "exclude": [
-        "demo",
-        "dist"
+        "src/demo",
+        "build"
     ]
 }

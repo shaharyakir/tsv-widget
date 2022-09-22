@@ -5,11 +5,11 @@ export default class TSVWidgetElement extends HTMLElement {
     private ch;
     private sources;
     private selectedFile;
-    private readonly ipfsProvider;
+    private ipfsProvider;
     private verifiedContractUrl;
     private verifiedContract;
-    private readonly theme;
-    private readonly layout;
+    private theme;
+    private layout;
     /**
      *
      */

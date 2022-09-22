@@ -1,6 +1,9 @@
 import {loadWASM} from "onigasm"
 import {activateLanguage, addGrammar, addTheme, ITextmateThemePlus, linkInjections, setRoot} from "codemirror-textmate"
 import * as CodeMirror from "codemirror"
+// do not remove, this import makes sure the wasm file is included in the bundle
+import wasmBase64String from "./static/onigasm.wasm.js"
+import Utils from "./Utils.js"
 
 /**
  *
@@ -26,9 +29,10 @@ export default class CodeHighlighter {
         setRoot(shadowRoot)
 
         await loadWASM(
+            Utils.base64ToArrayBuffer(wasmBase64String)
             // webpack has been configured to resolve `.wasm` files to actual 'paths" as opposed to using the built-in wasm-loader
             // oniguruma is a low-level library and stock wasm-loader isn't equipped with advanced low-level API's to interact with libonig
-            require('onigasm/lib/onigasm.wasm'))
+        )
 
         const grammars = {
             'source.func': {
