@@ -18,6 +18,7 @@ export default class TSVWidgetElement extends HTMLElement {
      * Runs each time the element is appended to or moved in the DOM
      */
     connectedCallback(): Promise<void>;
+    bindTabChangeEvents(): void;
     /**
      * fetch sources from the verified contract json url
      */

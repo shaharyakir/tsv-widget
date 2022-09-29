@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "start": "webpack-dev-server --hot",
-    "build": "rm -rf build && webpack",
+    "build": "rm -rf build && webpack --devtool eval",
     "npm-publish" : "npm publish --access=public"
   },
   "repository": {

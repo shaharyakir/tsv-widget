@@ -4,6 +4,11 @@
 export default class CodeHighlighter {
     private editor;
     private readonly theme;
+    private tsvLanguageIndex;
+    /**
+     *
+     * @param theme
+     */
     constructor(theme: string);
     /**
      *
@@ -11,5 +16,9 @@ export default class CodeHighlighter {
      * @param element
      */
     init(shadowRoot: ShadowRoot, element: HTMLTextAreaElement): Promise<void>;
-    setCode(value: any): void;
+    /**
+     *
+     * @param value
+     */
+    setCode(value: any): Promise<void>;
 }

@@ -3,8 +3,6 @@ import * as SVG from "./static/svg.json"
 
 const style = require("./style.css")
 
-const template = document.createElement('template')
-
 /**
  *
  */
@@ -52,9 +50,36 @@ export default class TSVWidgetElement extends HTMLElement {
 
         await this.buildTabs()
 
+        this.bindTabChangeEvents()
+
         this.selectFile(
             this.selectedFile
         )
+
+    }
+
+    bindTabChangeEvents() {
+
+        const tabButtonsElements = this.shadowRoot.querySelectorAll("div.nav-tabs div.tab-button ");
+
+        for (const tabButtonsElement of tabButtonsElements) {
+
+            tabButtonsElement.addEventListener("click", () => {
+
+                for (const _tabButtonsElement of tabButtonsElements) {
+
+                    if (_tabButtonsElement !== tabButtonsElement) {
+                        _tabButtonsElement.classList.remove('active')
+                    }
+
+                }
+
+                tabButtonsElement.classList.add('active')
+
+                this.selectFile(tabButtonsElement.getAttribute('file-name'))
+            })
+
+        }
 
     }
 
@@ -88,6 +113,8 @@ export default class TSVWidgetElement extends HTMLElement {
     async buildContainer() {
 
         const codeMirrorCss = (require("codemirror/lib/codemirror.css")).toString()
+
+        const template = document.createElement('template')
 
         template.innerHTML = `      
                 <style>${codeMirrorCss}</style>
@@ -143,27 +170,6 @@ export default class TSVWidgetElement extends HTMLElement {
             this.cmHost
         )
 
-        const tabButtonsElements = this.shadowRoot.querySelectorAll("div.nav-tabs div.tab-button ");
-
-        for (const tabButtonsElement of tabButtonsElements) {
-
-            tabButtonsElement.addEventListener("click", () => {
-
-                for (const _tabButtonsElement of tabButtonsElements) {
-
-                    if (_tabButtonsElement !== tabButtonsElement) {
-                        _tabButtonsElement.classList.remove('active')
-                    }
-
-                }
-
-                tabButtonsElement.classList.add('active')
-
-                this.selectFile(tabButtonsElement.getAttribute('file-name'))
-            })
-
-        }
-
     }
 
     /**
@@ -185,7 +191,9 @@ export default class TSVWidgetElement extends HTMLElement {
      * Runs when the element is removed from the DOM
      */
     disconnectedCallback() {
+
         console.log('disconnected', this)
+
     }
 
     /**

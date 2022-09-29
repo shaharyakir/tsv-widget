@@ -24,8 +24,8 @@ module.exports = {
         port: 8080
     },
     performance: {
-        maxEntrypointSize: 512000,
-        maxAssetSize: 512000
+        maxEntrypointSize: 2048000,
+        maxAssetSize: 2048000
     },
     optimization: {
         minimize: true,
