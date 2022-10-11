@@ -1,12 +1,12 @@
 {
   "name": "@orbs-network/tsv-widget",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Ton contract code viewer for func with code highlighting ",
   "main": "build/index.js",
   "scripts": {
     "start": "webpack-dev-server --hot",
     "build": "rm -rf build && webpack --devtool eval",
-    "npm-publish" : "npm publish --access=public"
+    "npm-publish": "npm publish --access=public"
   },
   "repository": {
     "type": "git",
@@ -26,10 +26,8 @@
     "sources"
   ],
   "dependencies": {
-    "@types/codemirror": "^5.43.0",
-    "codemirror": "^5.43.0",
-    "codemirror-textmate": "git://github.com/orbs-network/codemirror-textmate",
-    "onigasm": "^2.2.5"
+    "highlight.js": "^11.6.0",
+    "highlightjs-func": "^0.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.18.10",
@@ -41,7 +39,6 @@
     "babel-loader": "^8.2.5",
     "babel-preset-minify": "^0.5.2",
     "css-loader": "^6.7.1",
-    "to-string-loader": "^1.2.0",
     "css-minimizer-webpack-plugin": "^4.1.0",
     "eslint": "^8.23.0",
     "file-loader": "^6.2.0",
@@ -50,6 +47,7 @@
     "node-polyfill-webpack-plugin": "^2.0.1",
     "style-loader": "^3.3.1",
     "terser-webpack-plugin": "^5.3.6",
+    "to-string-loader": "^1.2.0",
     "ts-loader": "^9.4.1",
     "url-loader": "^4.1.1",
     "webpack": "^5.74.0",
