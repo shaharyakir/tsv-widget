@@ -61,8 +61,8 @@ div.CodeMirror {
 }
 
 .container-tabs.dark .nav-tabs > div:hover {
-    background-color: var(--tsv--file-active-bg, #2a2b36);
-    color: var(--tsv--file-active-text-hover, #fff);
+    background-color: var(--tsv--file-bg-hover, #2a2b36);
+    color: var(--tsv--file-text-hover, #fff);
 }
 
 .container-tabs .nav-tabs > div.active, .container-tabs .nav-tabs > div.active:hover, .container-tabs .nav-tabs > div.active:focus {
