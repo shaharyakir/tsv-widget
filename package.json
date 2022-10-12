@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --hot",
     "build": "rm -rf build && webpack --devtool eval",
+    "build:min": "esbuild ./build/index.js --bundle --minify --target=es5 --outfile=./dist/index.min.js",
     "npm-publish": "npm publish --access=public"
   },
   "repository": {

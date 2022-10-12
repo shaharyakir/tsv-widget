@@ -3,6 +3,9 @@ import * as SVG from "./static/svg.json";
 
 const style = require("./style.css");
 
+type Theme = "light" | "dark";
+type Layout = "horizontal" | "vertical";
+
 /**
  *
  */
@@ -13,8 +16,8 @@ export default class TSVWidgetElement extends HTMLElement {
   private ipfsProvider: string;
   private verifiedContractUrl: string;
   private verifiedContract: any;
-  private theme: string;
-  private layout: string;
+  private theme: Theme;
+  private layout: Layout;
 
   /**
    *
@@ -31,10 +34,11 @@ export default class TSVWidgetElement extends HTMLElement {
   async connectedCallback() {
     console.log("connected!", this);
 
-    this.ipfsProvider = this.getAttribute("ipfs-provider");
+    this.ipfsProvider =
+      this.getAttribute("ipfs-provider") ?? "https://tonsource.infura-ipfs.io";
     this.verifiedContractUrl = this.getAttribute("verified-contract-url");
-    this.theme = this.getAttribute("theme");
-    this.layout = this.getAttribute("layout");
+    this.theme = (this.getAttribute("theme") ?? "light") as Theme;
+    this.layout = (this.getAttribute("layout") ?? "horizontal") as Layout;
 
     this.ch = new CodeHighlighter(this.theme);
 
