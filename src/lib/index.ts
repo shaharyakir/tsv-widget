@@ -165,7 +165,7 @@ export default class TSVWidgetElement extends HTMLElement {
    */
   selectFile(filename) {
     this.selectedFile = this.sources[filename];
-
+    this.shadowRoot.querySelector(".tab-content").scrollTo(0, 0);
     this.ch.setCode(this.selectedFile);
   }
 
