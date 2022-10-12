@@ -1,7 +1,7 @@
 import "./style.css";
 import typescriptLogo from "./typescript.svg";
 import { setupCounter } from "./counter";
-// import "@orbs-network/tsv-widget";
+import "@orbs-network/tsv-widget";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
@@ -15,13 +15,15 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     <h1>highlighter example</h1>
     <div style="height:500px">
     <tsv-widget
-      verified-contract-url="ipfs://Qmc2XaToAq77pcsQLS4qv3qnnkjjSFDPwqBi9kJXJnbiSr"
+      verified-contract-url="ipfs://Qmd4B1Xc6hy4XsEBuRh1kRhfwCXtXfT7fimJAD2fuGdMQJ"
       theme="dark"
     >
     </tsv-widget>
+    </div>
+    <div style="height:500px">
     <tsv-widget
       ipfs-provider="https://tonsource.infura-ipfs.io"
-      verified-contract-url="ipfs://Qmc2XaToAq77pcsQLS4qv3qnnkjjSFDPwqBi9kJXJnbiSr"
+      verified-contract-url="ipfs://Qmd4B1Xc6hy4XsEBuRh1kRhfwCXtXfT7fimJAD2fuGdMQJ"
       layout="vertical"
     >
     </tsv-widget>

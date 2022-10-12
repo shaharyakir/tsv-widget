@@ -52,8 +52,8 @@ div.CodeMirror {
 }
 
 .container-tabs.dark .nav-tabs > div {
-    background-color: #393b4a;
-    color: #fff;
+    background-color: var(--tsv--file-bg, #393b4a);
+    color: var(--tsv--file-text, #fff);
 }
 
 .container-tabs .nav-tabs > div:hover {
@@ -61,8 +61,8 @@ div.CodeMirror {
 }
 
 .container-tabs.dark .nav-tabs > div:hover {
-    background-color: #2a2b36;
-    color: #fff;
+    background-color: var(--tsv--file-active-bg, #2a2b36);
+    color: var(--tsv--file-active-text-hover, #fff);
 }
 
 .container-tabs .nav-tabs > div.active, .container-tabs .nav-tabs > div.active:hover, .container-tabs .nav-tabs > div.active:focus {
@@ -72,8 +72,8 @@ div.CodeMirror {
 }
 
 .container-tabs.dark .nav-tabs > div.active, .container-tabs.dark .nav-tabs > div.active:hover, .container-tabs.dark .nav-tabs > div.active:focus {
-    background-color: #191a20;
-    color: #fff;
+    background-color: var(--tsv--file-active-bg, #191a20);
+    color: var(--tsv--file-active-text, #fff);
 }
 
 .container-tabs .tab-content {
@@ -102,6 +102,16 @@ div.CodeMirror {
     display: flex;
 }
 
-pre {
+
+.container-tabs.dark pre {
     margin: 0;
 }
+
+.container-tabs.dark #code {
+    background: var(--tsv--code-background, #282c34);
+}
+
+.container-tabs #code {
+    background: var(--tsv--code-background, #fafafa);
+}
+
