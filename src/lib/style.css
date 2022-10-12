@@ -1,6 +1,5 @@
 .container-tabs {
-    font-family: "Roboto", Arial, serif !important;
-    font-size: 12pt;
+    font-size: 1em;
     display: flex;
     flex-direction: row;
     position: relative;
