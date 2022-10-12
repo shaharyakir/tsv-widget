@@ -120,8 +120,8 @@ export default class TSVWidgetElement extends HTMLElement {
                     
                     <div part="tabs-buttons" id="tabs-buttons" class="nav nav-tabs">                       
                     </div>
-                    <div part="tab-content" class="tab-content">
-                        <pre><code class="language-func" id="code"></code></pre>
+                    <div class="tab-content">
+                        <pre><code part="tab-content" class="language-func" id="code"></code></pre>
                     </div>
                 </div>           
                 `;
