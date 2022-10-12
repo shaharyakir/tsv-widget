@@ -47,8 +47,8 @@ div.CodeMirror {
 }
 
 .container-tabs .nav-tabs > div {
-    background-color: #fff;
-    color: #555;
+    background-color: var(--tsv--file-bg, #fff);
+    color: var(--tsv--file-text, #555);
 }
 
 .container-tabs.dark .nav-tabs > div {
@@ -57,7 +57,8 @@ div.CodeMirror {
 }
 
 .container-tabs .nav-tabs > div:hover {
-    background-color: #efefef;
+    background-color: var(--tsv--file-bg-hover, #efefef);
+    color: var(--tsv--file-text-hover, #000);
 }
 
 .container-tabs.dark .nav-tabs > div:hover {
@@ -66,9 +67,9 @@ div.CodeMirror {
 }
 
 .container-tabs .nav-tabs > div.active, .container-tabs .nav-tabs > div.active:hover, .container-tabs .nav-tabs > div.active:focus {
-    color: #555;
+    color: var(--tsv--file-active-text, #555);
     cursor: default;
-    background-color: #f3f4f6;
+    background-color: var(--tsv--file-active-bg, #f3f4f6);
 }
 
 .container-tabs.dark .nav-tabs > div.active, .container-tabs.dark .nav-tabs > div.active:hover, .container-tabs.dark .nav-tabs > div.active:focus {
@@ -113,5 +114,6 @@ div.CodeMirror {
 
 .container-tabs #code {
     background: var(--tsv--code-background, #fafafa);
+    font-family: var(--tsv--code-font, inherit);
 }
 

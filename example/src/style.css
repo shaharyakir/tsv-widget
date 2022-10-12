@@ -14,9 +14,9 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
   /* --tsv--file-active-bg: yellow; */
-  --tsv--file-active-text: white;
-  --tsv--file-active-bg-hover: #393b4a;
-  --tsv--file-active-text-hover: pink;
+  /* --tsv--file-active-text: white; */
+  /* --tsv--file-active-bg-hover: #393b4a; */
+  /* --tsv--file-active-text-hover: pink; */
 }
 
 a {
