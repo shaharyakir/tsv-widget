@@ -34,9 +34,9 @@ export default class TSVWidgetElement extends HTMLElement {
     /**
      * select a specific file and corresponding tab
      *
-     * @param fileName
+     * @param filename
      */
-    selectFile(fileName: any): void;
+    selectFile(filename: any): void;
     /**
      * Runs when the element is removed from the DOM
      */

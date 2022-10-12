@@ -90,7 +90,7 @@ export default class TSVWidgetElement extends HTMLElement {
 
         const resp = await fetch(url);
 
-        this.sources[source.fileName] = await resp.text();
+        this.sources[source.filename] = await resp.text();
       })
     );
 
@@ -138,16 +138,16 @@ export default class TSVWidgetElement extends HTMLElement {
     let index = 0;
 
     for (const sourceMetadata of this.verifiedContract.sources) {
-      const fileName = sourceMetadata.fileName;
+      const filename = sourceMetadata.filename;
 
       tabsButtons += `<div part="tab-button" class="tab-button ${
         index === 0 ? "active" : ""
-      }" file-name="${fileName}">
-                                     ${fileName}
+      }" file-name="${filename}">
+                                     ${filename}
                                     </div>`;
 
       if (index === 0) {
-        this.selectedFile = fileName;
+        this.selectedFile = filename;
       }
 
       index++;
@@ -161,10 +161,10 @@ export default class TSVWidgetElement extends HTMLElement {
   /**
    * select a specific file and corresponding tab
    *
-   * @param fileName
+   * @param filename
    */
-  selectFile(fileName) {
-    this.selectedFile = this.sources[fileName];
+  selectFile(filename) {
+    this.selectedFile = this.sources[filename];
 
     this.ch.setCode(this.selectedFile);
   }
