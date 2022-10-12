@@ -1,7 +1,7 @@
 import "./style.css";
 import typescriptLogo from "./typescript.svg";
 import { setupCounter } from "./counter";
-import "@orbs-network/tsv-widget";
+// import "@orbs-network/tsv-widget";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
