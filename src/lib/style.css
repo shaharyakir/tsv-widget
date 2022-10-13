@@ -117,3 +117,6 @@ div.CodeMirror {
     font-family: var(--tsv--code-font, inherit);
 }
 
+.contract-verifier-code {
+    text-align: left;
+}

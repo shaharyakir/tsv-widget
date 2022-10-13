@@ -2,6 +2,7 @@ import "./style.css";
 import typescriptLogo from "./typescript.svg";
 import { setupCounter } from "./counter";
 import "@orbs-network/tsv-widget";
+// import "@orbs-network/tsv-widget/build/typings/src/lib/"; // TODO bypass this!
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
@@ -12,20 +13,12 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
       <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
     </a>
     <h1>highlighter example</h1>
-    <div style="height:500px">
-    <tsv-widget
-      verified-contract-url="ipfs://Qmd4B1Xc6hy4XsEBuRh1kRhfwCXtXfT7fimJAD2fuGdMQJ"
-      theme="dark"
-    >
-    </tsv-widget>
-    </div>
-    <div style="height:500px">
-    <tsv-widget
-      ipfs-provider="https://tonsource.infura-ipfs.io"
-      verified-contract-url="ipfs://Qmd4B1Xc6hy4XsEBuRh1kRhfwCXtXfT7fimJAD2fuGdMQJ"
-      layout="vertical"
-    >
-    </tsv-widget>
+
+    <div class="contract-verifier-container">
+      <div class="contract-verifier-files">
+      </div>
+      <div class="contract-verifier-code">
+      </div>
     </div>
 
     <p class="read-the-docs">
@@ -34,3 +27,16 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   </div>
 `;
 
+window.onload = async () => {
+  const ipfslink = await window.ContractVerifier.getSourcesJsonUrl(
+    "/rX/aCDi/w2Ug+fg1iyBfYRniftK5YDIeIZtlZ2r1cA=",
+    { httpApiEndpoint: "https://scalable-api.tonwhales.com/jsonRPC" }
+  );
+
+  if (ipfslink) {
+    const y = await window.ContractVerifier.getSourcesData(ipfslink);
+
+    // @ts-ignore
+    ContractVerifierUI.loadSourcesData("", "", y);
+  }
+};

@@ -1,8 +1,8 @@
 import hljs from "highlight.js";
 import hljsDefine from "highlightjs-func";
 import "highlight.js/styles/github.css";
-
 hljsDefine(hljs);
+
 /**
  *
  */
