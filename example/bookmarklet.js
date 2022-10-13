@@ -88,6 +88,7 @@ function waitForElm(selector) {
       id="widget"
       verified-contract-url="ipfs://Qmd4B1Xc6hy4XsEBuRh1kRhfwCXtXfT7fimJAD2fuGdMQJ"
       theme=${isDark ? "dark" : "light"}
+      layout="vertical"
     >
     </tsv-widget>
     </div>
