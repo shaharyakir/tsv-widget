@@ -12,7 +12,6 @@ let StyleLoader = {
 const { nodePolyfills } = require("esbuild-plugin-polyfill-node");
 
 (async () => {
-  console.log("1");
   await require("esbuild")
     .build({
       plugins: [nodePolyfills(), StyleLoader],
@@ -23,6 +22,4 @@ const { nodePolyfills } = require("esbuild-plugin-polyfill-node");
       sourcemap: true,
     })
     .catch(() => process.exit(1));
-
-  console.log("2");
 })();

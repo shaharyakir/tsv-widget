@@ -6,7 +6,7 @@ import hljs from "highlight.js";
 import hljsDefine from "highlightjs-func";
 hljsDefine(hljs);
 
-import style from "./style.css";
+import * as style from "./style.css";
 
 type Theme = "light" | "dark";
 type Layout = "row" | "column";

@@ -3,12 +3,12 @@
     "moduleResolution": "node",
     "target": "es6",
     "outDir": "build",
-    // "module": "commonjs",
     "declaration": true,
     "declarationDir": "build",
     "sourceMap": true,
     "resolveJsonModule": true,
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "allowSyntheticDefaultImports": true,
   },
   "exclude": ["src/demo", "build", "example"]
 }

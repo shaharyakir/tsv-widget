@@ -1,3 +1,5 @@
+declare type Theme = "light" | "dark";
+declare type Layout = "row" | "column";
 interface GetSourcesOptions {
     verifier?: string;
     httpApiEndpoint?: string;
@@ -41,8 +43,8 @@ declare var _ContractVerifierUI: {
         fileListSelector?: string;
         contentSelector: string;
         sourcesData: SourcesData;
-        theme: "dark" | "light";
-        layout?: "row" | "column";
+        theme: Theme;
+        layout?: Layout;
     }) => void;
 };
 export {};
