@@ -190,7 +190,6 @@ var _ContractVerifierUI = {
 
   _populateContainer: function (selector: string, layout?: "row" | "column") {
     const el = document.querySelector(selector);
-    console.log('yo', el)
     el.classList.add(this.classNames.CONTAINER);
     if (layout === "column") {
       el.classList.add("column");

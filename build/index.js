@@ -97813,7 +97813,6 @@
     },
     _populateContainer: function(selector, layout) {
       const el = document.querySelector(selector);
-      console.log("yo", el);
       el.classList.add(this.classNames.CONTAINER);
       if (layout === "column") {
         el.classList.add("column");

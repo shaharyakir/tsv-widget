@@ -16,6 +16,15 @@ Ton verified contract code viewer for func with code highlighting
 - Displays code navigator with code highlighting
 - Customizable data fetching (IPFS GW, Ton API endpoint)
 
+## 👀 Demo
+1. Clone this repo
+2. Run `npm install`
+3. Run `npm build`
+4. Navigate to `example/vanilla`
+5. Run `npm link ../../`
+6. Run `npm install`
+7. Run `npm run dev`
+
 ## 📦 Getting Started
 
 ### Step 1: Prepare DOM ###
@@ -63,7 +72,7 @@ Add this to your HTML structure
 </script>
 ```
 
-## 💎 Inteface
+## ℹ️ Interface
 
 ### ContractVerifier
 ```typescript
