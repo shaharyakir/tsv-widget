@@ -1,105 +1,3 @@
-.container-tabs.vertical {
-    flex-direction: column;
-}
-
-.container-tabs .nav-tabs {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    list-style-type: none;
-    min-width: 10rem;
-    max-width: 10rem;
-    overflow-y: auto;
-}
-
-.container-tabs.vertical .nav-tabs {
-    flex-direction: row;
-    min-width: initial;
-    max-width: initial;
-    min-height: 2.5rem;
-    overflow-y: hidden;
-    overflow-x: auto;
-}
-
-.container-tabs .nav-tabs > div {
-    white-space: nowrap;
-    margin-right: 2px;
-    line-height: 1.42857143;
-    padding: 10px 20px;
-    cursor: pointer;
-}
-
-.container-tabs .nav-tabs > div {
-    background-color: var(--tsv--file-bg, #fff);
-    color: var(--tsv--file-text, #555);
-}
-
-.container-tabs.dark .nav-tabs > div {
-    background-color: var(--tsv--file-bg, #393b4a);
-    color: var(--tsv--file-text, #fff);
-}
-
-.container-tabs .nav-tabs > div:hover {
-    background-color: var(--tsv--file-bg-hover, #efefef);
-    color: var(--tsv--file-text-hover, #000);
-}
-
-.container-tabs.dark .nav-tabs > div:hover {
-    background-color: var(--tsv--file-bg-hover, #2a2b36);
-    color: var(--tsv--file-text-hover, #fff);
-}
-
-.container-tabs .nav-tabs > div.active, .container-tabs .nav-tabs > div.active:hover, .container-tabs .nav-tabs > div.active:focus {
-    color: var(--tsv--file-active-text, #555);
-    cursor: default;
-    background-color: var(--tsv--file-active-bg, #f3f4f6);
-}
-
-.container-tabs.dark .nav-tabs > div.active, .container-tabs.dark .nav-tabs > div.active:hover, .container-tabs.dark .nav-tabs > div.active:focus {
-    background-color: var(--tsv--file-active-bg, #191a20);
-    color: var(--tsv--file-active-text, #fff);
-}
-
-.container-tabs .tab-content {
-    margin-left: 2px;
-    width: calc(100% - 10rem - 2px); /* including left margin and buttons */
-    height: 100%;
-    overflow-y: auto;
-}
-
-.container-tabs.vertical .tab-content {
-    max-width: initial;
-    margin-left: 0;
-    margin-top: 2px;
-}
-
-.container-tabs .loading-curtain {
-    display: none;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 9;
-    opacity: 0.3;
-}
-
-.container-tabs .loading-curtain.visible {
-    display: flex;
-}
-
-
-.container-tabs.dark pre {
-    margin: 0;
-}
-
-.container-tabs.dark #code {
-    background: var(--tsv--code-background, #282c34);
-}
-
-.container-tabs #code {
-    background: var(--tsv--code-background, #fafafa);
-    font-family: var(--tsv--code-font, inherit);
-}
-
 .contract-verifier-container {
     display: flex;
     height: 100%;
@@ -113,6 +11,7 @@
     text-align: left;
     overflow: auto;
     height: 100%;
+    width: 100%;
 }
 
 .contract-verifier-code pre {
