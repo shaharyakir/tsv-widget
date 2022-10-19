@@ -95768,13 +95768,14 @@
         }
         Nodes2.prototype.init = function(nodesUrl) {
           return __awaiter(this, void 0, void 0, function() {
-            var response, data, e_1;
+            var topology, response, data, e_1, _i, topology_1, node;
             return __generator(this, function(_a) {
               switch (_a.label) {
                 case 0:
                   this.nodeIndex = -1;
                   this.committee.clear();
                   this.topology = [];
+                  topology = [];
                   _a.label = 1;
                 case 1:
                   _a.trys.push([1, 4, , 5]);
@@ -95784,13 +95785,20 @@
                   return [4, response.json()];
                 case 3:
                   data = _a.sent();
-                  this.topology = data;
+                  topology = data;
                   return [3, 5];
                 case 4:
                   e_1 = _a.sent();
-                  console.error("exception in fetch(".concat(nodesUrl, "):"), e_1);
-                  return [3, 5];
+                  throw new Error("exception in fetch(".concat(nodesUrl, "): ").concat(e_1));
                 case 5:
+                  for (_i = 0, topology_1 = topology; _i < topology_1.length; _i++) {
+                    node = topology_1[_i];
+                    if (node.Healthy === "1") {
+                      this.topology.push(node);
+                    }
+                  }
+                  if (this.topology.length === 0)
+                    throw new Error("no healthy nodes retrieved");
                   return [2];
               }
             });
@@ -95988,6 +95996,13 @@
           var protocol = this.config.protocol;
           if (!suffixPath)
             suffixPath = this.formatSuffix;
+          if (protocol !== "toncenter-api-v2") {
+            switch (network) {
+              case "testnet":
+              case "sandbox":
+                throw new Error("sandbox and testent are supported only in toncenter-api-v2");
+            }
+          }
           return "https://".concat(this.config.host, "/").concat(nodeName, "/").concat(urlVersion, "/").concat(network, "/").concat(protocol, "/").concat(suffixPath);
         };
         Gateway2.prototype.getNextNodeUrl = function(suffixPath, committeeOnly) {
@@ -97674,7 +97689,7 @@
   }
 
   // src/lib/style.css
-  var style_default = ".container-tabs.vertical {\n    flex-direction: column;\n}\n\n.container-tabs .nav-tabs {\n    display: flex;\n    flex-direction: column;\n    margin: 0;\n    list-style-type: none;\n    min-width: 10rem;\n    max-width: 10rem;\n    overflow-y: auto;\n}\n\n.container-tabs.vertical .nav-tabs {\n    flex-direction: row;\n    min-width: initial;\n    max-width: initial;\n    min-height: 2.5rem;\n    overflow-y: hidden;\n    overflow-x: auto;\n}\n\n.container-tabs .nav-tabs > div {\n    white-space: nowrap;\n    margin-right: 2px;\n    line-height: 1.42857143;\n    padding: 10px 20px;\n    cursor: pointer;\n}\n\n.container-tabs .nav-tabs > div {\n    background-color: var(--tsv--file-bg, #fff);\n    color: var(--tsv--file-text, #555);\n}\n\n.container-tabs.dark .nav-tabs > div {\n    background-color: var(--tsv--file-bg, #393b4a);\n    color: var(--tsv--file-text, #fff);\n}\n\n.container-tabs .nav-tabs > div:hover {\n    background-color: var(--tsv--file-bg-hover, #efefef);\n    color: var(--tsv--file-text-hover, #000);\n}\n\n.container-tabs.dark .nav-tabs > div:hover {\n    background-color: var(--tsv--file-bg-hover, #2a2b36);\n    color: var(--tsv--file-text-hover, #fff);\n}\n\n.container-tabs .nav-tabs > div.active, .container-tabs .nav-tabs > div.active:hover, .container-tabs .nav-tabs > div.active:focus {\n    color: var(--tsv--file-active-text, #555);\n    cursor: default;\n    background-color: var(--tsv--file-active-bg, #f3f4f6);\n}\n\n.container-tabs.dark .nav-tabs > div.active, .container-tabs.dark .nav-tabs > div.active:hover, .container-tabs.dark .nav-tabs > div.active:focus {\n    background-color: var(--tsv--file-active-bg, #191a20);\n    color: var(--tsv--file-active-text, #fff);\n}\n\n.container-tabs .tab-content {\n    margin-left: 2px;\n    width: calc(100% - 10rem - 2px); /* including left margin and buttons */\n    height: 100%;\n    overflow-y: auto;\n}\n\n.container-tabs.vertical .tab-content {\n    max-width: initial;\n    margin-left: 0;\n    margin-top: 2px;\n}\n\n.container-tabs .loading-curtain {\n    display: none;\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    z-index: 9;\n    opacity: 0.3;\n}\n\n.container-tabs .loading-curtain.visible {\n    display: flex;\n}\n\n\n.container-tabs.dark pre {\n    margin: 0;\n}\n\n.container-tabs.dark #code {\n    background: var(--tsv--code-background, #282c34);\n}\n\n.container-tabs #code {\n    background: var(--tsv--code-background, #fafafa);\n    font-family: var(--tsv--code-font, inherit);\n}\n\n.contract-verifier-container {\n    display: flex;\n}\n\n.contract-verifier-container.column {\n    flex-direction: column;\n}\n\n.contract-verifier-code {\n    text-align: left;\n    overflow: auto;\n}\n\n.contract-verifier-code pre {\n    margin: 0\n}\n\n.contract-verifier-container.column .contract-verifier-files {\n    flex-direction: row;\n}\n\n.contract-verifier-files {\n    text-align: left;\n    flex-shrink: 0;\n    display: flex;\n    flex-direction: column;\n}\n\n.contract-verifier-files.dark {\n    background: #28292d;\n}\n\n.contract-verifier-files.light {\n    background: #fff;\n}\n\n.contract-verifier-file {\n    padding: 10px 20px;\n    cursor: pointer;\n}\n\n.contract-verifier-files.dark .contract-verifier-file:hover {\n    filter: brightness(0.8);\n}\n\n.contract-verifier-files.light .contract-verifier-file:hover {\n    background-color: #f6f6f6;\n}\n\n.contract-verifier-files.dark .contract-verifier-file.active {\n    background: #232222;\n}\n\n.contract-verifier-files.light .contract-verifier-file.active {\n    background: #f2f2f2;\n}";
+  var style_default = ".container-tabs.vertical {\n    flex-direction: column;\n}\n\n.container-tabs .nav-tabs {\n    display: flex;\n    flex-direction: column;\n    margin: 0;\n    list-style-type: none;\n    min-width: 10rem;\n    max-width: 10rem;\n    overflow-y: auto;\n}\n\n.container-tabs.vertical .nav-tabs {\n    flex-direction: row;\n    min-width: initial;\n    max-width: initial;\n    min-height: 2.5rem;\n    overflow-y: hidden;\n    overflow-x: auto;\n}\n\n.container-tabs .nav-tabs > div {\n    white-space: nowrap;\n    margin-right: 2px;\n    line-height: 1.42857143;\n    padding: 10px 20px;\n    cursor: pointer;\n}\n\n.container-tabs .nav-tabs > div {\n    background-color: var(--tsv--file-bg, #fff);\n    color: var(--tsv--file-text, #555);\n}\n\n.container-tabs.dark .nav-tabs > div {\n    background-color: var(--tsv--file-bg, #393b4a);\n    color: var(--tsv--file-text, #fff);\n}\n\n.container-tabs .nav-tabs > div:hover {\n    background-color: var(--tsv--file-bg-hover, #efefef);\n    color: var(--tsv--file-text-hover, #000);\n}\n\n.container-tabs.dark .nav-tabs > div:hover {\n    background-color: var(--tsv--file-bg-hover, #2a2b36);\n    color: var(--tsv--file-text-hover, #fff);\n}\n\n.container-tabs .nav-tabs > div.active, .container-tabs .nav-tabs > div.active:hover, .container-tabs .nav-tabs > div.active:focus {\n    color: var(--tsv--file-active-text, #555);\n    cursor: default;\n    background-color: var(--tsv--file-active-bg, #f3f4f6);\n}\n\n.container-tabs.dark .nav-tabs > div.active, .container-tabs.dark .nav-tabs > div.active:hover, .container-tabs.dark .nav-tabs > div.active:focus {\n    background-color: var(--tsv--file-active-bg, #191a20);\n    color: var(--tsv--file-active-text, #fff);\n}\n\n.container-tabs .tab-content {\n    margin-left: 2px;\n    width: calc(100% - 10rem - 2px); /* including left margin and buttons */\n    height: 100%;\n    overflow-y: auto;\n}\n\n.container-tabs.vertical .tab-content {\n    max-width: initial;\n    margin-left: 0;\n    margin-top: 2px;\n}\n\n.container-tabs .loading-curtain {\n    display: none;\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    z-index: 9;\n    opacity: 0.3;\n}\n\n.container-tabs .loading-curtain.visible {\n    display: flex;\n}\n\n\n.container-tabs.dark pre {\n    margin: 0;\n}\n\n.container-tabs.dark #code {\n    background: var(--tsv--code-background, #282c34);\n}\n\n.container-tabs #code {\n    background: var(--tsv--code-background, #fafafa);\n    font-family: var(--tsv--code-font, inherit);\n}\n\n.contract-verifier-container {\n    display: flex;\n    height: 100%;\n}\n\n.contract-verifier-container.column {\n    flex-direction: column;\n}\n\n.contract-verifier-code {\n    text-align: left;\n    overflow: auto;\n    height: 100%;\n}\n\n.contract-verifier-code pre {\n    margin: 0\n}\n\n.contract-verifier-container.column .contract-verifier-files {\n    flex-direction: row;\n}\n\n.contract-verifier-files {\n    text-align: left;\n    flex-shrink: 0;\n    display: flex;\n    flex-direction: column;\n}\n\n.contract-verifier-files.dark {\n    background: #28292d;\n}\n\n.contract-verifier-files.light {\n    background: #fff;\n}\n\n.contract-verifier-file {\n    padding: 10px 20px;\n    cursor: pointer;\n}\n\n.contract-verifier-files.dark .contract-verifier-file:hover {\n    filter: brightness(0.8);\n}\n\n.contract-verifier-files.light .contract-verifier-file:hover {\n    background-color: #f6f6f6;\n}\n\n.contract-verifier-files.dark .contract-verifier-file.active {\n    background: #232222;\n}\n\n.contract-verifier-files.light .contract-verifier-file.active {\n    background: #f2f2f2;\n}";
 
   // src/lib/index.ts
   var import_bn = __toESM(require_bn4());
@@ -97727,19 +97742,19 @@
       return __async(this, null, function* () {
         ipfsConverter = ipfsConverter != null ? ipfsConverter : (ipfs) => ipfs.replace("ipfs://", "https://tonsource.infura-ipfs.io/ipfs/");
         this.verifiedContract = yield (yield fetch(ipfsConverter(sourcesJsonUrl))).json();
-        const resp = { files: [] };
-        yield Promise.all(
+        const files = yield Promise.all(
           this.verifiedContract.sources.map(
             (source) => __async(this, null, function* () {
               const url = ipfsConverter(source.url);
-              resp.files.push({
+              const content = yield fetch(url).then((u) => u.text());
+              return {
                 name: source.filename,
-                content: yield fetch(url).then((u) => u.text())
-              });
+                content
+              };
             })
           )
         );
-        return resp;
+        return { files: files.reverse() };
       });
     }
   };

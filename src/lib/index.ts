@@ -276,7 +276,7 @@ const _ContractVerifier = {
       )
     );
 
-    return { files };
+    return { files: files.reverse() };
   },
 };
 

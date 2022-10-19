@@ -102,6 +102,7 @@
 
 .contract-verifier-container {
     display: flex;
+    height: 100%;
 }
 
 .contract-verifier-container.column {
@@ -111,6 +112,7 @@
 .contract-verifier-code {
     text-align: left;
     overflow: auto;
+    height: 100%;
 }
 
 .contract-verifier-code pre {
