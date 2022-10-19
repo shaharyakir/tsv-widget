@@ -1,42 +1,119 @@
 import "./style.css";
-import typescriptLogo from "./typescript.svg";
-import { setupCounter } from "./counter";
+
 import "@orbs-network/tsv-widget";
-// import "@orbs-network/tsv-widget/build/typings/src/lib/"; // TODO bypass this!
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>highlighter example</h1>
+    <h1>Code Verifier UI Demo</h1>
 
-    <div class="contract-verifier-container">
-      <div class="contract-verifier-files">
+    <h2>Full</h2>
+    <div id="myContainerFull" style="min-height:300px; background-color:#282c34; width:100%;">
+      <div id="myFilesFull">
       </div>
-      <div class="contract-verifier-code">
+      <div id="myContentFull">
+      </div>
+    </div>
+    
+    <h2>No Files</h2>
+    <div id="myContainerNoFiles" style="min-height:300px; background-color:#282c34; width:100%; margin-bottom: 8px;">
+      <div id="myContentNoFiles">
+      </div>
+    </div>
+    <button id="container-nofiles-btn">Switch file</button>
+
+    <h2>Column</h2>
+    <div id="myContainerColumn" style="min-height:300px; background-color:#282c34; width:100%; margin-bottom: 8px;">
+      <div id="myFilesColumn">
+      </div>
+      <div id="myContentColumn">
       </div>
     </div>
 
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
+    <h2>With Explanation</h2>
+    <div id="myContainerExplanation" style="min-height:300px; background-color:#282c34; width:100%;">
+      <div id="myFilesExplanation">
+      </div>
+      <div id="myContentExplanation">
+      </div>
+      <div id="explanation" style="visibility: hidden;">
+        <h3>How is this source code verified?</h3>
+        <br/>
+        This source code compiles to the same exact bytecode that is found on-chain.
+        <br/>
+        <br/>
+        Compilation verification is performed by a decentralized group of validators.
+        <br/>
+        <br/>
+        Variable names and comments cannot be verified and may not be honest.
+        <br/>
+        <br/>
+        <button>See proof</button>
+      </div>
+    </div>
+
   </div>
 `;
 
 window.onload = async () => {
-  const ipfslink = await window.ContractVerifier.getSourcesJsonUrl(
+  const ipfslink = await ContractVerifier.getSourcesJsonUrl(
     "/rX/aCDi/w2Ug+fg1iyBfYRniftK5YDIeIZtlZ2r1cA=",
     { httpApiEndpoint: "https://scalable-api.tonwhales.com/jsonRPC" }
   );
 
   if (ipfslink) {
-    const y = await window.ContractVerifier.getSourcesData(ipfslink);
+    const sourcesData = await ContractVerifier.getSourcesData(ipfslink);
+    const theme =
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
 
-    // @ts-ignore
-    ContractVerifierUI.loadSourcesData("", "", y);
+    // Full
+    ContractVerifierUI.loadSourcesData({
+      sourcesData: sourcesData,
+      containerSelector: "#myContainerFull",
+      fileListSelector: "#myFilesFull",
+      contentSelector: "#myContentFull",
+      theme,
+    });
+
+    // No files
+    ContractVerifierUI.loadSourcesData({
+      sourcesData: sourcesData,
+      containerSelector: "#myContainerNoFiles",
+      contentSelector: "#myContentNoFiles",
+      theme,
+      layout: "row",
+    });
+
+    (document.querySelector("#container-nofiles-btn")! as HTMLElement).onclick =
+      () => {
+        ContractVerifierUI.setCode(
+          "#myContentNoFiles",
+          sourcesData.files[1].content
+        );
+      };
+
+    // Row
+    ContractVerifierUI.loadSourcesData({
+      sourcesData: sourcesData,
+      containerSelector: "#myContainerColumn",
+      fileListSelector: "#myFilesColumn",
+      contentSelector: "#myContentColumn",
+      theme,
+      layout: "column"
+    });
+   
+    // Explanation
+    ContractVerifierUI.loadSourcesData({
+      sourcesData: sourcesData,
+      containerSelector: "#myContainerExplanation",
+      fileListSelector: "#myFilesExplanation",
+      contentSelector: "#myContentExplanation",
+      theme,
+      layout: "row"
+    });
+
+    (document.querySelector("#explanation") as HTMLElement).style.visibility = "";
   }
 };

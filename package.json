@@ -5,8 +5,8 @@
   "main": "build/index.js",
   "scripts": {
     "start": "webpack-dev-server --hot",
-    "build": "rm -rf build && webpack --devtool eval",
-    "build:min": "esbuild ./build/index.js --bundle --minify --target=es5 --outfile=./dist/index.min.js",
+    "build": "rm -rf build && node build.js && tsc",
+    "build:min": "esbuild ./src/lib/index.ts --bundle --target=es2015 --outfile=./build/index.js",
     "npm-publish": "npm publish --access=public"
   },
   "repository": {
@@ -28,37 +28,18 @@
   ],
   "dependencies": {
     "@aws-crypto/sha256-js": "^2.0.2",
-    "@orbs-network/ton-gateway": "^1.2.3",
+    "@orbs-network/ton-gateway": "^1.3.0",
     "bn.js": "^5.2.1",
+    "buffer": "^6.0.3",
+    "esbuild-plugin-polyfill-node": "^0.0.2",
     "highlight.js": "^11.6.0",
     "highlightjs-func": "^0.3.0",
     "ton": "^12.1.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.18.10",
-    "@babel/core": "^7.19.1",
-    "@babel/plugin-proposal-class-properties": "^7.18.6",
-    "@babel/polyfill": "^7.12.1",
-    "@babel/preset-env": "^7.19.1",
     "@types/bn.js": "^5.1.1",
-    "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.2.5",
-    "babel-preset-minify": "^0.5.2",
-    "css-loader": "^6.7.1",
-    "css-minimizer-webpack-plugin": "^4.1.0",
     "esbuild": "^0.15.10",
-    "eslint": "^8.23.0",
-    "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^5.5.0",
-    "mini-css-extract-plugin": "^2.6.1",
-    "node-polyfill-webpack-plugin": "^2.0.1",
-    "style-loader": "^3.3.1",
-    "terser-webpack-plugin": "^5.3.6",
-    "to-string-loader": "^1.2.0",
-    "ts-loader": "^9.4.1",
-    "url-loader": "^4.1.1",
-    "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.11.1"
+    "esbuild-plugins-node-modules-polyfill": "^1.0.6",
+    "eslint": "^8.23.0"
   }
 }

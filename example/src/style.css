@@ -46,6 +46,7 @@ h1 {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  width: 100%;
 }
 
 .logo {
@@ -90,7 +91,7 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: #c6c6c6;
   }
   a:hover {
     color: #747bff;
@@ -98,4 +99,13 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+#explanation {
+  padding-top: 30px;
+  background-color: #d2d2d2;
+}
+
+.contract-verifier-container {
+  height: 500px;
 }

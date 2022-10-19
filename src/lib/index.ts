@@ -1,3 +1,5 @@
+import { Address, Cell, TonClient } from "ton";
+
 import CodeHighlighter from "./code-highlighter";
 import * as SVG from "./static/svg.json";
 
@@ -5,7 +7,7 @@ import hljs from "highlight.js";
 import hljsDefine from "highlightjs-func";
 hljsDefine(hljs);
 
-const style = require("./style.css");
+import style from "./style.css";
 
 type Theme = "light" | "dark";
 type Layout = "horizontal" | "vertical";
@@ -23,9 +25,8 @@ interface SourcesData {
 type IpfsUrlConverterFunc = (ipfsUrl: string) => string;
 
 declare global {
-  interface Window {
-    ContractVerifier: typeof y;
-  }
+  var ContractVerifier: typeof _ContractVerifier;
+  var ContractVerifierUI: typeof _ContractVerifierUI;
 }
 
 // /**
@@ -188,7 +189,6 @@ declare global {
 //   //   }
 // }
 
-import { Address, Cell, TonClient } from "ton";
 import { BN } from "bn.js";
 import { getHttpEndpoint } from "@orbs-network/ton-gateway";
 import { Sha256 } from "@aws-crypto/sha256-js";
@@ -201,7 +201,7 @@ const toSha256Buffer = (s: string) => {
   return Buffer.from(sha.digestSync());
 };
 
-const y = {
+const _ContractVerifier = {
   getSourcesJsonUrl: async function (
     codeCellHash: string,
     options?: GetSourcesOptions
@@ -281,28 +281,114 @@ const y = {
   },
 };
 
-window["ContractVerifier"] = y;
+var _ContractVerifierUI = {
+  classNames: {
+    CONTAINER: "contract-verifier-container",
+    FILES: "contract-verifier-files",
+    FILE: "contract-verifier-file",
+    CONTENT: "contract-verifier-code",
+  },
 
-const x = window["ContractVerifierUI"] = {
-  loadSourcesData: function (
-    fileListSelector: string,
-    fileContentSelector: string,
-    sourcesData: SourcesData
-  ) {
-    const codePart = document.querySelector(".contract-verifier-code");
-    console.log(codePart, "SS");
-
+  _populateCode: function (contentSelector: string, theme: "dark" | "light") {
+    const codeContainer = document.querySelector(contentSelector);
+    codeContainer.classList.add(this.classNames.CONTENT);
     const dark = require("highlight.js/styles/atom-one-dark.css").toString();
     const light = require("highlight.js/styles/atom-one-light.css").toString();
 
     const styleEl = document.createElement("style");
-    styleEl.innerHTML = `${light} ${style}`;
+    styleEl.innerHTML = `${theme === "light" ? light : dark} ${style}`;
     document.head.appendChild(styleEl);
 
-    codePart.innerHTML = `<pre><code class="language-func">${
-      sourcesData.files.find((f) => f.name.match(/wallet/)).content
-    }</code></pre>`;
-    // hljs.highlightElement(codePart as HTMLElement);
-    hljs.highlightAll();
+    codeContainer.innerHTML = `<pre><code class="language-func ${theme}"></code></pre>`;
+  },
+
+  _setCode: function (
+    { name, content }: { name: string; content: string },
+    codeWrapperEl: HTMLElement,
+    filesListEl?: HTMLElement,
+    fileEl?: HTMLElement
+  ) {
+    if (fileEl?.classList.contains("active")) return;
+    codeWrapperEl.scrollTo(0, 0);
+    const codeEl = codeWrapperEl.querySelector("code");
+    codeEl.textContent = content;
+    hljs.highlightElement(codeEl as HTMLElement);
+
+    filesListEl
+      ?.querySelector(`.${this.classNames.FILE}.active`)
+      ?.classList.remove("active");
+
+    fileEl?.classList.add("active");
+  },
+
+  setCode: function (contentSelector: string, content: string) {
+    this._setCode(
+      { name: "", content },
+      document.querySelector(contentSelector)
+    );
+  },
+
+  _populateFiles: function (
+    fileListSelector: string,
+    contentSelector: string,
+    files: { name: string; content: string }[],
+    theme: "dark" | "light"
+  ) {
+    const filePart = document.querySelector(fileListSelector);
+    filePart.classList.add(theme);
+    filePart.classList.add(this.classNames.FILES);
+
+    files.forEach(({ name, content }) => {
+      const el = document.createElement("div");
+      el.classList.add(this.classNames.FILE);
+      el.innerText = name;
+      el.onclick = () => {
+        this._setCode(
+          { name, content },
+          document.querySelector(contentSelector),
+          document.querySelector(fileListSelector),
+          el
+        );
+      };
+      filePart.appendChild(el);
+    });
+  },
+
+  _populateContainer: function (selector: string, layout?: "row" | "column") {
+    const el = document.querySelector(selector);
+    el.classList.add(this.classNames.CONTAINER);
+    if (layout === "column") {
+      el.classList.add("column");
+    }
+  },
+
+  loadSourcesData: function (opts: {
+    containerSelector: string;
+    fileListSelector?: string;
+    contentSelector: string;
+    sourcesData: SourcesData;
+    theme: "dark" | "light";
+    layout?: "row" | "column";
+  }) {
+    this._populateContainer(opts.containerSelector, opts.layout);
+
+    if (opts.fileListSelector) {
+      this._populateFiles(
+        opts.fileListSelector,
+        opts.contentSelector,
+        opts.sourcesData.files,
+        opts.theme
+      );
+    }
+    this._populateCode(opts.contentSelector, opts.theme);
+    this._setCode(
+      opts.sourcesData.files[0],
+      document.querySelector(opts.contentSelector),
+      document.querySelector(opts.fileListSelector),
+      document.querySelector(`${opts.fileListSelector} .contract-verifier-file`) // Get first file
+    );
   },
 };
+
+window.ContractVerifier = _ContractVerifier;
+window.ContractVerifierUI = _ContractVerifierUI;

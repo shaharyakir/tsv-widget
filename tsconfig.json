@@ -1,16 +1,14 @@
 {
-    "compilerOptions": {
-        "moduleResolution": "node",
-        "target": "es6",
-        "outDir": "build",
-        "module": "commonjs",
-        "declaration": true,
-        "declarationDir": "build/typings",
-        "sourceMap": true,
-        "resolveJsonModule": true
-    },
-    "exclude": [
-        "src/demo",
-        "build"
-    ]
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "es6",
+    "outDir": "build",
+    // "module": "commonjs",
+    "declaration": true,
+    "declarationDir": "build",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "emitDeclarationOnly": true
+  },
+  "exclude": ["src/demo", "build", "example"]
 }
