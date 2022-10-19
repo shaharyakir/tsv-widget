@@ -26,7 +26,7 @@ function waitForElm(selector) {
 (async function () {
   const script = document.createElement("script");
   script.src =
-    "https://cdn.jsdelivr.net/gh/shaharyakir/tsv-widget@eb5e2c0/build/index.min.js";
+    "https://cdn.jsdelivr.net/gh/shaharyakir/tsv-widget@4a25ec8/build/index.min.js";
   document.head.appendChild(script);
 
   const style = document.createElement("style");
