@@ -267,9 +267,10 @@ const _ContractVerifier = {
       this.verifiedContract.sources.map(
         async (source: { url: string; filename: string }) => {
           const url = ipfsConverter(source.url);
+          const content = await fetch(url).then((u) => u.text());
           return {
             name: source.filename,
-            content: await fetch(url).then((u) => u.text()),
+            content,
           };
         }
       )
