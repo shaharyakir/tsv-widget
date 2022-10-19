@@ -18,14 +18,27 @@ Ton verified contract code viewer for func with code highlighting
 
 ## 📦 Getting Started
 
-### Node ###
+### Step 1: Prepare DOM ###
+Add this to your HTML structure
+```html
+<div id="myVerifierContainer">
+    <div id="myVerifierFiles">
+    </div>
+    <div id="myVerifierContent">
+    </div>
+</div>
+```
+
+### Step 2: Activate widget library
+
+#### Node
 (Coming soon)
 
-### Browser ###
+#### Browser
 ```html
 <script src="https://cdn.jsdelivr.net/gh/todo"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", async function () {
         const codeCellHash = "/rX/aCDi/w2Ug+fg1iyBfYRniftK5YDIeIZtlZ2r1cA=";
         
         const ipfslink = await ContractVerifier.getSourcesJsonUrl(
@@ -48,16 +61,6 @@ Ton verified contract code viewer for func with code highlighting
         }
     });
 </script>
-```
-
-And add to your dom the following structure:
-```html
-<div id="myVerifierContainer">
-    <div id="myVerifierFiles">
-    </div>
-    <div id="myVerifierContent">
-    </div>
-</div>
 ```
 
 ## 💎 Inteface
