@@ -21,7 +21,7 @@ function waitForElm(selector) {
 (async function x() {
   const script = document.createElement("script");
   script.src =
-    "https://cdn.jsdelivr.net/gh/shaharyakir/tsv-widget@669b4de/build/index.min.js";
+    "https://cdn.jsdelivr.net/gh/shaharyakir/tsv-widget@7f5b02e/build/index.min.js";
   document.head.appendChild(script);
 
   const style = document.createElement("style");
@@ -102,6 +102,7 @@ function waitForElm(selector) {
 
     if (ipfslink) {
       const sourcesData = await ContractVerifier.getSourcesData(ipfslink);
+      console.log(sourcesData)
       const theme =
         window.matchMedia &&
         window.matchMedia("(prefers-color-scheme: dark)").matches

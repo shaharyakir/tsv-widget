@@ -262,22 +262,20 @@ const _ContractVerifier = {
       await fetch(ipfsConverter(sourcesJsonUrl))
     ).json();
 
-    const resp = { files: [] };
-
     // TODO filename => name
-    await Promise.all(
+    const files = await Promise.all(
       this.verifiedContract.sources.map(
         async (source: { url: string; filename: string }) => {
           const url = ipfsConverter(source.url);
-          resp.files.push({
+          return {
             name: source.filename,
             content: await fetch(url).then((u) => u.text()),
-          });
+          };
         }
       )
     );
 
-    return resp;
+    return { files };
   },
 };
 
@@ -339,7 +337,6 @@ var _ContractVerifierUI = {
     filePart.classList.add(this.classNames.FILES);
 
     files.forEach(({ name, content }) => {
-      console.log(name, "SHAHAR")
       const el = document.createElement("div");
       el.classList.add(this.classNames.FILE);
       el.innerText = name;
