@@ -61,7 +61,10 @@ window.onload = async () => {
   );
 
   if (ipfslink) {
-    const sourcesData = await ContractVerifier.getSourcesData(ipfslink);
+    const sourcesData = await ContractVerifier.getSourcesData(
+      ipfslink
+    );
+
     const theme =
       window.matchMedia &&
       window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -69,8 +72,7 @@ window.onload = async () => {
         : "light";
 
     // Full
-    ContractVerifierUI.loadSourcesData({
-      sourcesData: sourcesData,
+    ContractVerifierUI.loadSourcesData(sourcesData, {
       containerSelector: "#myContainerFull",
       fileListSelector: "#myFilesFull",
       contentSelector: "#myContentFull",
@@ -78,8 +80,7 @@ window.onload = async () => {
     });
 
     // No files
-    ContractVerifierUI.loadSourcesData({
-      sourcesData: sourcesData,
+    ContractVerifierUI.loadSourcesData(sourcesData, {
       containerSelector: "#myContainerNoFiles",
       contentSelector: "#myContentNoFiles",
       theme,
@@ -95,25 +96,24 @@ window.onload = async () => {
       };
 
     // Row
-    ContractVerifierUI.loadSourcesData({
-      sourcesData: sourcesData,
+    ContractVerifierUI.loadSourcesData(sourcesData, {
       containerSelector: "#myContainerColumn",
       fileListSelector: "#myFilesColumn",
       contentSelector: "#myContentColumn",
       theme,
-      layout: "column"
+      layout: "column",
     });
-   
+
     // Explanation
-    ContractVerifierUI.loadSourcesData({
-      sourcesData: sourcesData,
+    ContractVerifierUI.loadSourcesData(sourcesData, {
       containerSelector: "#myContainerExplanation",
       fileListSelector: "#myFilesExplanation",
       contentSelector: "#myContentExplanation",
       theme,
-      layout: "row"
+      layout: "row",
     });
 
-    (document.querySelector("#explanation") as HTMLElement).style.visibility = "";
+    (document.querySelector("#explanation") as HTMLElement).style.visibility =
+      "";
   }
 };

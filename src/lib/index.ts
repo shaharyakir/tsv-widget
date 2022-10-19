@@ -6,7 +6,7 @@ import hljs from "highlight.js";
 import hljsDefine from "highlightjs-func";
 hljsDefine(hljs);
 
-import * as style from "./style.css";
+import style from "./style.css";
 
 type Theme = "light" | "dark";
 type Layout = "row" | "column";
@@ -190,33 +190,36 @@ var _ContractVerifierUI = {
 
   _populateContainer: function (selector: string, layout?: "row" | "column") {
     const el = document.querySelector(selector);
+    console.log('yo', el)
     el.classList.add(this.classNames.CONTAINER);
     if (layout === "column") {
       el.classList.add("column");
     }
   },
 
-  loadSourcesData: function (opts: {
-    containerSelector: string;
-    fileListSelector?: string;
-    contentSelector: string;
-    sourcesData: SourcesData;
-    theme: Theme;
-    layout?: Layout;
-  }) {
+  loadSourcesData: function (
+    sourcesData: SourcesData,
+    opts: {
+      containerSelector: string;
+      fileListSelector?: string;
+      contentSelector: string;
+      theme: Theme;
+      layout?: Layout;
+    }
+  ) {
     this._populateContainer(opts.containerSelector, opts.layout);
 
     if (opts.fileListSelector) {
       this._populateFiles(
         opts.fileListSelector,
         opts.contentSelector,
-        opts.sourcesData.files,
+        sourcesData.files,
         opts.theme
       );
     }
     this._populateCode(opts.contentSelector, opts.theme);
     this._setCode(
-      opts.sourcesData.files[0],
+      sourcesData.files[0],
       document.querySelector(opts.contentSelector),
       document.querySelector(opts.fileListSelector),
       document.querySelector(`${opts.fileListSelector} .contract-verifier-file`) // Get first file

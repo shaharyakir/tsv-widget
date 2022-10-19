@@ -38,11 +38,10 @@ declare var _ContractVerifierUI: {
         content: string;
     }[], theme: "dark" | "light") => void;
     _populateContainer: (selector: string, layout?: "row" | "column") => void;
-    loadSourcesData: (opts: {
+    loadSourcesData: (sourcesData: SourcesData, opts: {
         containerSelector: string;
         fileListSelector?: string;
         contentSelector: string;
-        sourcesData: SourcesData;
         theme: Theme;
         layout?: Layout;
     }) => void;

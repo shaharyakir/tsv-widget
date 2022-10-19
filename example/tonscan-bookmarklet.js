@@ -115,8 +115,7 @@ function waitForElm(selector) {
           : "light";
 
       // Full
-      ContractVerifierUI.loadSourcesData({
-        sourcesData: sourcesData,
+      ContractVerifierUI.loadSourcesData(sourcesData, {
         containerSelector: "#myContainerFull",
         fileListSelector: "#myFilesFull",
         contentSelector: "#myContentFull",

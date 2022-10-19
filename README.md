@@ -1,4 +1,4 @@
-# Ton Contract Sources Verifier 
+# Ton Contract Verifier 
 
 ## Table of Contents
 
@@ -9,58 +9,127 @@
 
 
 ## TL;DR
-Ton contract code viewer for func with code highlighting 
+Ton verified contract code viewer for func with code highlighting 
 
 ## ⭐️ Features
-
 - Fetches contract sources code from the ipfs via a sources.json url  
 - Displays code navigator with code highlighting
-
+- Customizable data fetching (IPFS GW, Ton API endpoint)
 
 ## 📦 Getting Started
 
-Install the npm package
-```
-npm install ton-sources-verifier-widget
-```
-then in your html (or any other ui framework)
-```
-<tsv-widget ipfs-provider="https://tonsource.infura-ipfs.io"
-            verified-contract-url="ipfs://Qmc2XaToAq77pcsQLS4qv3qnnkjjSFDPwqBi9kJXJnbiSr"
-            theme="light"
-            layout="horizontal">
-</tsv-widget>
+### Node ###
+(Coming soon)
 
+### Browser ###
+```html
+<script src="https://cdn.jsdelivr.net/gh/todo"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const codeCellHash = "/rX/aCDi/w2Ug+fg1iyBfYRniftK5YDIeIZtlZ2r1cA=";
+        
+        const ipfslink = await ContractVerifier.getSourcesJsonUrl(
+            codeCellHash,
+            { httpApiEndpoint: "https://scalable-api.tonwhales.com/jsonRPC" }
+        );
+
+        // means there exists a verified source for this contract
+        if (ipfslink) {
+            const sourcesData = await ContractVerifier.getSourcesData(ipfslink, (ipfs) => ipfs.replace("ipfs://", "https://myproj.mygateway-ipfs.io/ipfs/"));
+            const theme = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+
+            ContractVerifierUI.loadSourcesData({
+                sourcesData: sourcesData,
+                containerSelector: "#myVerifierContainer",
+                fileListSelector: "#myVerifierFiles",
+                contentSelector: "#myVerifierContent",
+                theme
+            });
+        }
+    });
+</script>
+```
+
+And add to your dom the following structure:
+```html
+<div id="myVerifierContainer">
+    <div id="myVerifierFiles">
+    </div>
+    <div id="myVerifierContent">
+    </div>
+</div>
+```
+
+## 💎 Inteface
+
+### ContractVerifier
+```typescript
+interface GetSourcesOptions {
+  verifier?: string, // Defaults to "orbs.com"
+  httpApiEndpoint?: string, // Defaults to an Orbs L3 Ton Gateway
+  httpApiKey?: string
+}
+
+// Returns an `ipfs://` prefixed URL if the given code cell hash has a corresponding source verifier contract 
+async ContractVerifier.getSourcesJsonUrl(codeCellHash: string, options?: GetSourcesOptions): Promise<string | null>;
+
+
+interface SourcesData {
+  files: { name: string, content: string }[];
+}
+type IpfsUrlConverterFunc (ipfsUrl: string) => string;
+
+// Returns file names and their source code content
+async ContractVerifier.getSourcesData(sourcesJsonUrl: string | null, ipfsConverter?: IpfsUrlConverterFunc): Promise<SourcesData>;
+```
+
+### ContractVerifierUI
+
+```typescript
+ContractVerifierUI.loadSourcesData(sourcesData: SourcesData, opts: {
+    containerSelector: string; // main container
+    fileListSelector?: string; // if omitted, the file list will not be populated and the setCode function can be used instead to switch between files
+    contentSelector: string; // code container
+    theme: Theme; // "light" or "dark"
+    layout?: Layout; // "row" or "column"
+});
+
+// To be used usually only if the file list is manually built
+ContractVerifier.UI.setCode(contentSelector: string, content: string);
 ```
 
 ## 💎 Customization
 
-### Native
-
-Layout can be to either "horizontal" or "vertical"
-
-``` layout="horizontal" ``` (default)
-
-``` layout="vertical" ```
-
-Theme can be set to either "light" or "dark"
-
-``` theme="light" ``` (default)
-
-``` theme="dark" ```
-
 ### CSS
-The tsv-widget is a custom element, which means that in order to get access to its internal components you need to access the shadow tree of the element.
-For css you can use "part" selector to access internal elements inside the shadow tree
+The widget will attach the following classnames to its components:
+```
+contract-verifier-container
+contract-verifier-files
+contract-verifier-file
+contract-verifier-code
+```
 
-For example (on the document level): 
-
-``` 
-<style>
-    #widget::part(container-tabs) {
-        background-color: deeppink !important;
-    }
-</style>
+Which can be customized, for example in the following manner:
+```css
+#myContentFull code {
+    background-color: var(--code-viewer-background);
+    font-family: Ubuntu Mono,monospace; 
+}
+#myFilesFull .contract-verifier-file.active {
+    background-color: var(--code-viewer-background);
+}
+#myFilesFull .contract-verifier-file.active {
+    background-color: var(--code-viewer-background);
+    color: var(--body-text-color); 
+}
+#myFilesFull .contract-verifier-file:hover {
+    background-color: var(--code-viewer-tab-inactive-background);
+    color: var(--body-text-color); 
+}
+#myFilesFull .contract-verifier-file {
+    background-color: var(--code-viewer-tab-inactive-background);
+    color: #666;
+}
 ```
 
 ## 📔 License
