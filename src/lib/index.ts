@@ -339,6 +339,7 @@ var _ContractVerifierUI = {
     filePart.classList.add(this.classNames.FILES);
 
     files.forEach(({ name, content }) => {
+      console.log(name, "SHAHAR")
       const el = document.createElement("div");
       el.classList.add(this.classNames.FILE);
       el.innerText = name;
